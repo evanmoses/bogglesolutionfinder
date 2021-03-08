@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
 
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -28,19 +28,34 @@ const theme = createMuiTheme({
 
 function App() {
 
-  const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(''));
+  const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
   const classes = useStyles();
+
+  const handleInputChange = (event, index) => {
+    const newLetter = event.target.value;
+    let newArr = [...rolledLetters];
+    newArr[index] = newLetter;
+    updateLetters(newArr);
+  }
+
+  const updateLetters = useCallback(async (letters) => {
+    await setRolledLetters(letters);
+  }, []);
 
   const handleGetRandomClick = () => {
     const randomArray = generateRandom();
-    setRolledLetters(randomArray);
+    updateLetters(randomArray);
   }
+
+  useEffect(() => {
+    updateLetters(rolledLetters);
+  }, [updateLetters]);
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <div className={classes.root}>
-          <CubeGrid />
+          <CubeGrid rolledLetters={rolledLetters} handleInputChange={handleInputChange}/>
           <Buttons handleGetRandomClick={handleGetRandomClick}/>
         </div>
         <div>{rolledLetters}</div>

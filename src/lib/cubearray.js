@@ -23,9 +23,7 @@ export const generateRandom = () => {
   const letterArray = []
   const shuffledArray = _.shuffle(newArray)
   shuffledArray.forEach(cube => {
-    console.log(cube)
     const letter = cube[Math.floor(Math.random()* cube.length)];
-    console.log(letter);
     letterArray.push(letter);
   });
   return letterArray;
