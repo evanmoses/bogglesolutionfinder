@@ -31,23 +31,4 @@ export const generateRandom = () => {
   return letterArray;
 }
 
-
-
-// export const generateRandom = () => {
-//   const newArray = [...cubeArray];
-//   // const selectedArray = [];
-//   // for (let i = 0; i < 16; i+= 1) {
-//   const randomCube = Math.floor(Math.random() * newArray.length);
-//
-//   const thisCube = newArray.splice(randomCube, 1)
-//   console.log(thisCube);
-//   const randomLetter = Math.floor(Math.random() * thisCube.length)
-//   const thisLetter = thisCube[randomLetter];
-//   console.log(thisLetter);
-//   // selectedArray.push(thisLetter);
-//
-//   // }
-//   // return selectedArray;
-// }
-
-export default cubeArray;
+export default generateRandom;
