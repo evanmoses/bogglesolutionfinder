@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Buttons() {
+function Buttons(props) {
   return (
     <>
       <button />
       <button />
-      <button />
+      <button onClick={props.handleGetRandomClick}>Generate Random</button>
     </>
   );
 }
