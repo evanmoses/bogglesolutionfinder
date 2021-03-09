@@ -3,11 +3,6 @@
   src: url("./assets/texgyreheros-bold.otf") format("opentype");
 }
 
-.App {
-  text-align: center;
-  margin: 10% 20%;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

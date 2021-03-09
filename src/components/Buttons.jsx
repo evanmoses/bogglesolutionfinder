@@ -7,10 +7,16 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    maxWidth: '700px',
+    margin: 'auto',
   },
   input: {
     display: 'none',
+  },
+  button: {
+    margin: '10px 10px'
   }
+
 }));
 
 function Buttons(props) {
@@ -18,7 +24,7 @@ function Buttons(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container justify={'space-evenly'} margin=''>
+      <Grid container justify={'center'} >
         <input
           accept='image/*'
           className={classes.input}
@@ -26,10 +32,10 @@ function Buttons(props) {
           type='file'
         />
         <label htmlFor='contained-button-file'>
-          <Button variant='contained' color='primary' component='span'>Upload</Button>
+          <Button className={classes.button} variant='contained' color='primary' component='span'>Upload</Button>
         </label>
-        <Button variant='contained' color='primary' component='span' onClick={props.handleGetRandomClick}>Generate Random</Button>
-        <Button variant='contained' color='secondary' component='span'>Find Solutions</Button>
+        <Button className={classes.button} variant='contained' color='primary' component='span' onClick={props.handleGetRandomClick}>Generate Random</Button>
+        <Button className={classes.button} variant='contained' color='secondary' component='span'>Find Solutions</Button>
       </Grid>
     </div>
   );

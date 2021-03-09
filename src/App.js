@@ -7,13 +7,14 @@ import blue from '@material-ui/core/colors/blue'
 
 import Buttons from './components/Buttons.jsx';
 import CubeGrid from './components/CubeGrid.jsx';
+import Solutions from './components/Solutions.jsx'
 
 import generateRandom from './lib/cubearray.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: '8%',
-  }
+    margin: '5% 10%',
+  },
 }))
 
 const theme = createMuiTheme({
@@ -38,8 +39,8 @@ function App() {
     updateLetters(newArr);
   }
 
-  const updateLetters = useCallback(async (letters) => {
-    await setRolledLetters(letters);
+  const updateLetters = useCallback((letters) => {
+    setRolledLetters(letters);
   }, []);
 
   const handleGetRandomClick = () => {
@@ -49,16 +50,14 @@ function App() {
 
   useEffect(() => {
     updateLetters(rolledLetters);
-  }, [updateLetters]);
+  }, [rolledLetters]);
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
-        <div className={classes.root}>
-          <CubeGrid rolledLetters={rolledLetters} handleInputChange={handleInputChange}/>
-          <Buttons handleGetRandomClick={handleGetRandomClick}/>
-        </div>
-        <div>{rolledLetters}</div>
+        <CubeGrid rolledLetters={rolledLetters} handleInputChange={handleInputChange}/>
+        <Buttons handleGetRandomClick={handleGetRandomClick}/>
+        <Solutions />
       </div>
     </ThemeProvider>
   );
