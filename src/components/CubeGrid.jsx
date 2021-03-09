@@ -1,4 +1,5 @@
 import React, { useMemo, createRef, useEffect } from 'react';
+import { useMediaQuery } from '../lib/useMediaQuery';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -18,12 +19,24 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const wmzStyle = {
+  apply: isSmall => ({
+    textDecoration: 'underline',
+    fontSize: isSmall ? '36px' : '62px',
+  })
+};
+
+const quStyle = {
+  apply: isSmall => ({
+    fontSize: isSmall ? '30px' : '56px',
+  })
+};
+
 const BoggleInput = withStyles({
-  input: {
-    textTransform: 'capitalize',
+  root: {
+
     fontSize: '68px',
     fontWeight: 700,
-    textAlign: 'center',
     fontFamily: 'TexGyreHerosBold',
     height: '100%',
     padding: '0',
@@ -31,6 +44,10 @@ const BoggleInput = withStyles({
     ['@media (max-width:520px)']: { // eslint-disable-line no-useless-computed-key
       fontSize: '38px'
     }
+  },
+  input: {
+    textAlign: 'center',
+    textTransform: 'capitalize',
   }
 })(InputBase);
 
@@ -59,15 +76,26 @@ const Circle = withStyles({
 })(Box);
 
 function CubeGrid(props) {
-
   const classes = useStyles();
+  const isSmall = useMediaQuery('(max-width: 500px)');
+
   const refs = useMemo(
     () => Array.from({length: 16}).map(() => createRef()),
   []);
 
+  const computeStyle = index => {
+    if(props.rolledLetters[index] === 'W' || props.rolledLetters[index] === 'M' || props.rolledLetters[index] === 'Z') {
+      return wmzStyle.apply(isSmall);
+    }
+    if(props.rolledLetters[index] === 'Qu') {
+      return quStyle.apply(isSmall);
+    }
+  }
+
   useEffect(() => {
-    refs.current[refs.length - 1].current.focus()
   },[refs])
+
+
 
   if (!props.rolledLetters) {
     return null
@@ -76,18 +104,23 @@ function CubeGrid(props) {
     <Grid container className={classes.root}>
       <Grid container className={classes.control}>
         {props.rolledLetters.map((cube,index) => {
+
           return (
             <Cube key={`cube${index}`}>
               <Circle key={`circle${index}`}>
                 <BoggleInput
-                  key={index}
+                  key={`input${index}`}
                   value={props.rolledLetters[index]}
                   inputProps={{maxLength: 1}}
                   ref={refs[index]}
+
                   onChange={(e) => {
                     props.handleInputChange(e,index)
                     // refs[index].next.focus();
+
                   }}
+                  style={computeStyle(index)}
+
 
                 />
               </Circle>

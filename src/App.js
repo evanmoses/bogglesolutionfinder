@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     updateLetters(rolledLetters);
-  }, [rolledLetters]);
+  }, [updateLetters, rolledLetters]);
 
   return (
     <ThemeProvider theme={theme}>
