@@ -9,30 +9,13 @@ import Buttons from './components/Buttons.jsx';
 import CubeGrid from './components/CubeGrid.jsx';
 import Solutions from './components/Solutions.jsx'
 
-import { useMediaQuery } from '../lib/useMediaQuery';
+
 import generateRandom from './lib/cubearray.js';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    margin: '5% 10%',
-  },
-}))
-
-const theme = createMuiTheme({
-  palette: {
-    primary: blueGrey,
-    secondary: {
-      main: blue[700],
-    }
-  },
-})
-
 
 function App() {
 
   const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
-  const [specialStyles, setSpecialStyles] = useState('default');
-  const isSmall = useMediaQuery('(max-width: 500px)');
+
   const classes = useStyles();
 
   const handleOnFocus = (event, index) => {
@@ -42,11 +25,9 @@ function App() {
     updateLetters(newArr);
   }
 
-  const handleInputChange = (event, index) => {
-    let newLetter = event.target.value;
-    if(newLetter === 'Q' || newLetter === 'q') {
-      newLetter = 'Qu'
-    };
+  const handleInputChange = async (event, index) => {
+    let newLetter = event.target.value.toUpperCase();
+    if (newLetter === 'Q') newLetter = 'Qu';
     let newArr = [...rolledLetters];
     newArr[index] = newLetter;
     updateLetters(newArr);
@@ -63,12 +44,14 @@ function App() {
 
   useEffect(() => {
     updateLetters(rolledLetters);
-  }, [updateLetters, rolledLetters]);
+  }, [rolledLetters, updateLetters]);
 
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
-        <CubeGrid rolledLetters={rolledLetters} handleInputChange={handleInputChange} handleOnFocus={handleOnFocus}/>
+        <CubeGrid
+          rolledLetters={rolledLetters} handleInputChange={handleInputChange} handleOnFocus={handleOnFocus}
+        />
         <Buttons handleGetRandomClick={handleGetRandomClick}/>
         <Solutions />
       </div>
@@ -77,3 +60,19 @@ function App() {
 }
 
 export default App;
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: '5% 10%',
+  },
+}))
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blueGrey,
+    secondary: {
+      main: blue[700],
+    }
+  },
+})

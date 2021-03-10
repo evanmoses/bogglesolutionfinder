@@ -1,5 +1,5 @@
-import React, { useMemo, createRef, useEffect } from 'react';
-
+import React from 'react';
+import { useMediaQuery } from '../lib/useMediaQuery';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,29 +9,13 @@ import Box from '@material-ui/core/Box'
 
 
 function CubeGrid(props) {
+  const isSmall = useMediaQuery('(max-width: 500px)');
   const classes = useStyles();
-
-  const refs = useMemo(
-    () => Array.from({length: 16}).map(() => createRef()),
-  []);
-
-  const computeStyle = index => {
-    if(props.rolledLetters[index] === 'W' || props.rolledLetters[index] === 'M' || props.rolledLetters[index] === 'Z') {
-      return wmzStyle.apply(props.isSmall);
-    }
-    if(props.rolledLetters[index] === 'Qu') {
-      return quStyle.apply(props.isSmall);
-    }
-  }
-
-  useEffect(() => {
-  },[refs]);
-
-
 
   if (!props.rolledLetters) {
     return null
   }
+
   return (
     <Grid container className={classes.root}>
       <Grid container className={classes.control}>
@@ -44,15 +28,15 @@ function CubeGrid(props) {
                   key={`input${index}`}
                   value={props.rolledLetters[index]}
                   inputProps={{maxLength: 1}}
-                  ref={refs[index]}
                   onFocus={e => props.handleOnFocus(e,index)}
                   onChange={e => {
                     props.handleInputChange(e,index);
-                    // refs[index].next.focus();
                   }}
-                  style={computeStyle(index)}
-
-
+                  style={
+                    ['W','M','Z'].indexOf(props.rolledLetters[index]) > -1 ?
+                      wmzStyle.apply(isSmall) :
+                        props.rolledLetters[index] === 'Qu' ? quStyle.apply(isSmall) : defStyle.apply(isSmall)
+                  }
                 />
               </Circle>
             </Cube>
@@ -79,6 +63,12 @@ const quStyle = {
   })
 };
 
+const defStyle = {
+  apply: isSmall => ({
+    fontSize: isSmall ? '38px' : '68px',
+  })
+};
+
 const useStyles = makeStyles(theme => ({
   root: {
     justifyContent: 'center',
@@ -94,16 +84,11 @@ const useStyles = makeStyles(theme => ({
 
 const BoggleInput = withStyles({
   root: {
-
-    fontSize: '68px',
     fontWeight: 700,
     fontFamily: 'TexGyreHerosBold',
     height: '100%',
     padding: '0',
     transform: 'translateY(-5%)',
-    ['@media (max-width:520px)']: { // eslint-disable-line no-useless-computed-key
-      fontSize: '38px'
-    }
   },
   input: {
     textAlign: 'center',
