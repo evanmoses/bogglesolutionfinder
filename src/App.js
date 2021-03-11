@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
+// import ClipLoader from 'react-spinners';
 
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import blueGrey from '@material-ui/core/colors/blueGrey';
@@ -7,13 +8,12 @@ import blue from '@material-ui/core/colors/blue'
 
 import Buttons from './components/Buttons.jsx';
 import CubeGrid from './components/CubeGrid.jsx';
-import Solutions from './components/Solutions.jsx'
+import Solutions from './components/Solutions.jsx';
 
 
 import generateRandom from './lib/cubearray.js';
 
 function App() {
-
   const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
 
   const classes = useStyles();
@@ -52,7 +52,9 @@ function App() {
         <CubeGrid
           rolledLetters={rolledLetters} handleInputChange={handleInputChange} handleOnFocus={handleOnFocus}
         />
-        <Buttons handleGetRandomClick={handleGetRandomClick}/>
+        <Buttons
+          handleGetRandomClick={handleGetRandomClick}
+        />
         <Solutions />
       </div>
     </ThemeProvider>
