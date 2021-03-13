@@ -10,13 +10,18 @@ import Buttons from './components/Buttons.jsx';
 import CubeGrid from './components/CubeGrid.jsx';
 import Solutions from './components/Solutions.jsx';
 
-
 import generateRandom from './lib/cubearray.js';
+import { findSolutions, Dict, board } from './lib/solveGrid.jsx'
+// import dictImport from './lib/sowpods.txt'
+// import { BoggleWords, MakeTrie } from './lib/solveGridAlt.jsx'
+// import { convertDict } from './lib/convertDict.js'
 
 function App() {
   const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
 
   const classes = useStyles();
+  const dict = new Dict();
+  console.log(dict);
 
   const handleOnFocus = (event, index) => {
     let newLetter = '';
@@ -42,6 +47,22 @@ function App() {
     updateLetters(randomArray);
   }
 
+
+  const handleSolveClick = () => {
+    findSolutions(board, dict);
+    // const dict = convertDict();
+    // var d = new MakeTrie(dict);
+    //
+    // var board = [
+    //     'fxie',
+    //     'amlo',
+    //     'ewbx',
+    //     'astu'
+    // ];
+    // const solution = BoggleWords(board, d);
+    // console.log(solution);
+  }
+
   useEffect(() => {
     updateLetters(rolledLetters);
   }, [rolledLetters, updateLetters]);
@@ -54,6 +75,7 @@ function App() {
         />
         <Buttons
           handleGetRandomClick={handleGetRandomClick}
+          handleSolveClick={handleSolveClick}
         />
         <Solutions />
       </div>

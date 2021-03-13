@@ -21,7 +21,8 @@ function Buttons(props) {
           className={classes.button}
           variant='contained'
           color='secondary'
-          component='span'>
+          component='span'
+          onClick={props.handleSolveClick}>
             Find Solutions
         </Button>
       </Grid>

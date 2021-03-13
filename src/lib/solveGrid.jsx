@@ -1,4 +1,4 @@
-import dictImport from '/solvegrid.js'
+import dictImport from './sowpods.txt'
 
 var Node = function(value, row, col) {
     this.value = value
@@ -137,12 +137,15 @@ Board.prototype.dfs_search = function(path) {
 var Dict = function() {
     this.dict_array = []
 
-    var dict_data = dictImport.toString();
-    var dict_array = dict_data.split('\n')
+    const dict_array = []
+    fetch(dictImport)
+      .then(t => t.text())
+      .then(t2 => t2.toUpperCase())
+      .then(obj => dict_array.push(obj.split('\n')));
 
-    for (var i = 0, ii = dict_array.length; i < ii; ++i) {
-        dict_array[i] = dict_array[i].toUpperCase()
-    }
+    // for (var i = 0, ii = dict_array.length; i < ii; ++i) {
+    //     dict_array[i] = dict_array[i].toUpperCase()
+    // }
 
     this.dict_array = dict_array.sort()
 }
@@ -206,10 +209,14 @@ var board = [
   , ['A', 'S', 'T', 'U']
 ]
 
-var dict = new Dict()
+// var dict = new Dict()
 
-var b = Board.from_raw(board, dict)
-b.update_potential_words()
-console.log(JSON.stringify(b.words.sort(function(a, b) {
-    return a.length - b.length
-})))
+const findSolutions = (board, dict) => {
+  var b = Board.from_raw(board, dict)
+  b.update_potential_words()
+  const solutionWords = JSON.stringify(b.words.sort(function(a, b) {
+      return a.length - b.length
+  }));
+  console.log(solutionWords);
+}
+export { findSolutions, Dict, board };
