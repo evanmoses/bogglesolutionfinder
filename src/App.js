@@ -11,17 +11,18 @@ import CubeGrid from './components/CubeGrid.jsx';
 import Solutions from './components/Solutions.jsx';
 
 import generateRandom from './lib/cubearray.js';
-import { findSolutions, Dict, board } from './lib/solveGrid.jsx'
+// import { findSolutions, Dict, board } from './lib/solveGrid.jsx'
 // import dictImport from './lib/sowpods.txt'
-// import { BoggleWords, MakeTrie } from './lib/solveGridAlt.jsx'
-// import { convertDict } from './lib/convertDict.js'
+import { BoggleWords, MakeTrie } from './lib/solveGridAlt.jsx'
+import { convertDict } from './lib/convertDict.js'
 
 function App() {
   const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
 
   const classes = useStyles();
-  const dict = new Dict();
-  console.log(dict);
+
+
+
 
   const handleOnFocus = (event, index) => {
     let newLetter = '';
@@ -48,19 +49,27 @@ function App() {
   }
 
 
-  const handleSolveClick = () => {
-    findSolutions(board, dict);
-    // const dict = convertDict();
-    // var d = new MakeTrie(dict);
-    //
-    // var board = [
-    //     'fxie',
-    //     'amlo',
-    //     'ewbx',
-    //     'astu'
-    // ];
-    // const solution = BoggleWords(board, d);
-    // console.log(solution);
+  const handleSolveClick = async function () {
+    // console.log(board);
+    // console.log(dict);
+    // console.log(dict.dict_array);
+    // console.log(dict.dict_array[0]);
+    // findSolutions(board, dict);
+    // const dict = ['beep', 'bop', 'lob', 'stub']
+    var dict = await convertDict();
+
+    const d = await new MakeTrie(dict);
+
+    console.log(dict, d);
+
+    var board = [
+        'fxie',
+        'amlo',
+        'ewbx',
+        'astu'
+    ];
+    const solution = BoggleWords(board, d);
+    console.log(solution);
   }
 
   useEffect(() => {

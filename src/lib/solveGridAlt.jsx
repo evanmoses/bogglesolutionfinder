@@ -95,7 +95,7 @@ var BoggleWords = function (grid, dict, mustHave) {
             }
         }
     }
-    return words.values()
+    return words;
 }
 
 /*Example usage:

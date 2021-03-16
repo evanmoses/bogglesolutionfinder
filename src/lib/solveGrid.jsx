@@ -134,20 +134,20 @@ Board.prototype.dfs_search = function(path) {
     }
 }
 
-var Dict = function() {
+var Dict = function () {
     this.dict_array = []
+    const dict_array = ['BOX', 'LIM', 'BOW', 'FAE'];
+    // const dict_array = fetch(dictImport)
+    //   .then(t => t.text())
+    //   .then(t2 => t2.toUpperCase())
+    //   .then(t3 => t3.split('\n'));
 
-    const dict_array = []
-    fetch(dictImport)
-      .then(t => t.text())
-      .then(t2 => t2.toUpperCase())
-      .then(obj => dict_array.push(obj.split('\n')));
 
     // for (var i = 0, ii = dict_array.length; i < ii; ++i) {
     //     dict_array[i] = dict_array[i].toUpperCase()
     // }
-
-    this.dict_array = dict_array.sort()
+    this.dict_array = dict_array.sort();
+    console.log(this.dict_array);
 }
 
 Dict.prototype.contains_prefix = function(prefix) {
