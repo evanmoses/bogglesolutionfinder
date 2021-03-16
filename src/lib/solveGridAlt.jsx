@@ -11,6 +11,7 @@ var TrieNode = function (parent, value) {
         parent.children[value.charCodeAt(0) - 97] = this;
     }
 };
+
 var MakeTrie = function (dict) {
     var root = new TrieNode(undefined, '');
     // console.log(root);
@@ -31,24 +32,7 @@ var MakeTrie = function (dict) {
       }
       curNode.isWord = true;
     })
-    //
-    // for (let word of dict.values()) {
-    //     // var curNode = root;
-    //     //
-    //     // for (var i = 0; i < word.length; i++) {
-    //     //     var letter = word[i];
-    //     //     var ord = letter.charCodeAt(0);
-    //     //     if (97 <= ord < 123) {
-    //     //         // console.log(curNode);
-    //     //         var nextNode = curNode.children[ord - 97];
-    //     //         if (nextNode === undefined) {
-    //     //             nextNode = new TrieNode(curNode, letter);
-    //     //         }
-    //     //         curNode = nextNode;
-    //     //     }
-    //     // }
-    //     // curNode.isWord = true;
-    // }
+
     return root;
 };
 

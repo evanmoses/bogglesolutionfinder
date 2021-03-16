@@ -11,8 +11,6 @@ import CubeGrid from './components/CubeGrid.jsx';
 import Solutions from './components/Solutions.jsx';
 
 import generateRandom from './lib/cubearray.js';
-// import { findSolutions, Dict, board } from './lib/solveGrid.jsx'
-// import dictImport from './lib/sowpods.txt'
 import { BoggleWords, MakeTrie } from './lib/solveGridAlt.jsx'
 import { convertDict } from './lib/convertDict.js'
 
@@ -50,25 +48,19 @@ function App() {
 
 
   const handleSolveClick = async function () {
-    // console.log(board);
-    // console.log(dict);
-    // console.log(dict.dict_array);
-    // console.log(dict.dict_array[0]);
-    // findSolutions(board, dict);
-    // const dict = ['beep', 'bop', 'lob', 'stub']
-    var dict = await convertDict();
-
+    // const smallDict = ["aa", "aah", "aahed", "aahing", "aahs"]
+    const dict = await convertDict();
     const d = await new MakeTrie(dict);
-
-    console.log(dict, d);
+    console.log(d);
 
     var board = [
-        'fxie',
-        'amlo',
-        'ewbx',
-        'astu'
+        'some',
+        'lett',
+        'qest',
+        'otry'
     ];
-    const solution = BoggleWords(board, d);
+
+    const solution = await BoggleWords(board, d);
     console.log(solution);
   }
 
