@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box'
 
 
 function CubeGrid(props) {
-  const isSmall = useMediaQuery('(max-width: 500px)');
+  const isSmall = useMediaQuery('(max-width: 520px)');
   const classes = useStyles();
 
   if (!props.rolledLetters) {
