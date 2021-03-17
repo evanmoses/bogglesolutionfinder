@@ -12,15 +12,13 @@ import Solutions from './components/Solutions.jsx';
 
 import generateRandom from './lib/cubearray.js';
 import { BoggleWords, MakeTrie } from './lib/solveGridAlt.jsx'
-import { convertDict } from './lib/convertDict.js'
+import { convertDict, boardTransform } from './lib/prepareBoardAndDict.js'
 
 function App() {
   const [rolledLetters, setRolledLetters] = useState(new Array(16).fill(' '));
+  const [solution, setSolution] = useState([]);
 
   const classes = useStyles();
-
-
-
 
   const handleOnFocus = (event, index) => {
     let newLetter = '';
@@ -48,20 +46,12 @@ function App() {
 
 
   const handleSolveClick = async function () {
-    // const smallDict = ["aa", "aah", "aahed", "aahing", "aahs"]
     const dict = await convertDict();
     const d = await new MakeTrie(dict);
-    console.log(d);
-
-    var board = [
-        'some',
-        'lett',
-        'qest',
-        'otry'
-    ];
-
-    const solution = await BoggleWords(board, d);
-    console.log(solution);
+    const board = await boardTransform(rolledLetters);
+    const wordSet = await BoggleWords(board, d);
+    const newSolve = Array.from(wordSet.values());
+    setSolution(newSolve);
   }
 
   useEffect(() => {
@@ -78,7 +68,7 @@ function App() {
           handleGetRandomClick={handleGetRandomClick}
           handleSolveClick={handleSolveClick}
         />
-        <Solutions />
+        <Solutions solution={solution}/>
       </div>
     </ThemeProvider>
   );

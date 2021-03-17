@@ -36,7 +36,9 @@ function Solutions(props) {
           <Button className={classes.button} variant='contained' color='primary' component='span'># of letters</Button>
         </label>
         <Button className={classes.button} variant='contained' color='primary' component='span' onClick={props.handleGetRandomClick}>starting with</Button>
+
       </Grid>
+      {props.solution.map(x => <div>{x}</div>)}
     </div>
   );
 }

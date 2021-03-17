@@ -1,4 +1,0 @@
-lob
-lox
-stub
-weird

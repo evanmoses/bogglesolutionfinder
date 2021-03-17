@@ -45,7 +45,12 @@ var BoggleWords = function (grid, dict, mustHave) {
         for (var x = 0; x < rows; x++) {
             var c = grid[y][x];
             var ord = c.charCodeAt(0);
-            var node = dict.children[ord - 97];
+            if (ord - 97 === 16) {
+              var node = dict.children[16].children[20];
+            } else {
+              var node = dict.children[ord - 97];
+            }
+            if (c === 'q') c = 'qu';
             if (node !== undefined) {
                 queue.push([x, y, c, node, [[x, y]]]);
             }
