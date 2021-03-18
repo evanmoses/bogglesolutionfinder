@@ -45,21 +45,18 @@ function Solutions(props) {
       return a.length - b.length;
     })
     const smallLetters = filterLetters.map(x => x.toLowerCase());
-    console.log(filterNumbers);
     const parsedNumbers = filterNumbers.flatMap(x => {
       if (x === '7+') {
         return ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
       }
       return parseInt(x)
     });
-    console.log(parsedNumbers);
 
     const filteredByLetter = lettersAll ? [...sortedByLength] :  sortedByLength.filter(item => smallLetters.includes(item[0]));
 
     const filteredByNumber = numbersAll ? [...filteredByLetter] :
     filteredByLetter.filter(item => parsedNumbers.includes(item.length))
 
-    console.log(filteredByNumber);
     return filteredByNumber.map(x => <div key={x}>{x}</div>);
   }
 
@@ -122,7 +119,7 @@ function Solutions(props) {
             </NumberToggleGroup>
           </Paper>
         </Grid>
-        {sortAndFilter()}
+        <Grid className={classes.columns}>{sortAndFilter()}</Grid>
       </div>
     </ThemeProvider>
   );
@@ -133,11 +130,6 @@ export default Solutions;
 
 const theme = createMuiTheme({
   breakpoints: {
-    // Define custom breakpoint values.
-    // These will apply to Material-UI components that use responsive
-    // breakpoints, such as `Grid` and `Hidden`. You can also use the
-    // theme breakpoint functions `up`, `down`, and `between` to create
-    // media queries for these breakpoints
     values: {
       xs: 0,
       sm: 370,
@@ -176,6 +168,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'transparent',
     border: '0px',
     boxShadow: 'none',
+  },
+  columns: {
+    columns: '100px 7',
+    marginLeft: '50px'
   }
 
 }));
