@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { makeStyles, withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -20,17 +20,17 @@ function Solutions(props) {
   const classes = useStyles();
 
   const handleLetterChange = (event, newLetters) => {
-    setLettersAll(false)
+    (filterLetters.length === 2 && newLetters.length === 1) ? setLettersAll(true) : setLettersAll(false)
     setFilterLetters(newLetters);
   }
 
   const handleLettersAll = event => {
-    setLettersAll(true)
+    setLettersAll(true);
     setFilterLetters(['All']);
-  }
+}
 
   const handleNumberChange = (event, newNumber) => {
-    setNumbersAll(false);
+    (filterNumbers.length === 2 && newNumber.length === 1) ? setNumbersAll(true) : setNumbersAll(false)
     setFilterNumbers(newNumber);
   }
 
@@ -62,12 +62,11 @@ function Solutions(props) {
 
   return (
     !props.solution.length ? null :
-    <ThemeProvider theme={theme}>
       <div className={classes.root}>
 
         <Grid container className={classes.container} >
-          <div>Filter results by:</div>
-          <div>Letter</div>
+          <div className={classes.heading}>Filter results by:</div>
+          <div className={classes.label}>Letter</div>
           <Paper className={classes.paper}>
 
             <AllButton
@@ -93,7 +92,7 @@ function Solutions(props) {
               ))}
             </StyledToggleButtonGroup>
           </Paper>
-          <div>Number</div>
+          <div className={classes.label}>Number</div>
           <Paper className={classes.paper}>
             <AllButton
               value='check'
@@ -121,24 +120,11 @@ function Solutions(props) {
         </Grid>
         <Grid className={classes.columns}>{sortAndFilter()}</Grid>
       </div>
-    </ThemeProvider>
   );
 }
 
 
 export default Solutions;
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 370,
-      md: 520,
-      lg: 900,
-      xl: 1200
-    }
-  }
-});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -171,7 +157,21 @@ const useStyles = makeStyles(theme => ({
   },
   columns: {
     columns: '100px 7',
-    marginLeft: '50px'
+    margin: '50px 0 0 50px',
+
+    [theme.breakpoints.between('xs', 'sm')]: {
+      columns: '70px 4',
+      margin: '35px 0 0 35px',
+    },
+
+  },
+  heading: {
+    marginTop: '30px',
+    fontWeight: '500',
+  },
+  label: {
+    margin: '10px 0 5px',
+    fontSize: '0.8rem'
   }
 
 }));
@@ -183,17 +183,17 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     justifyContent: 'center',
 
     [theme.breakpoints.between('lg','xl')]: {
-      minWidth: '755px'
+      minWidth: '780px'
     },
 
     [theme.breakpoints.between('md', 'md')]: {
-      minWidth: '380px',
-      maxWidth: '380px',
+      minWidth: '395px',
+      maxWidth: '395px',
     },
 
     [theme.breakpoints.between('xs', 'sm')]: {
-      minWidth: '262px',
-      maxWidth: '262px',
+      minWidth: '272px',
+      maxWidth: '272px',
     },
 
   },
@@ -201,7 +201,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     lineHeight: '1',
     minWidth: '30px',
     maxWidth: '30px',
-    margin: '0',
+    marginTop: '3px',
   },
 }))(ToggleButtonGroup);
 
@@ -213,26 +213,31 @@ const NumberToggleGroup = withStyles(theme => ({
     },
 
     [theme.breakpoints.between('md', 'md')]: {
-      minWidth: '328px',
-      maxWidth: '328px',
+      minWidth: '332px',
+      maxWidth: '332px',
     },
 
     [theme.breakpoints.between('xs', 'sm')]: {
-      minWidth: '219px',
-      maxWidth: '219px',
+      minWidth: '222px',
+      maxWidth: '222px',
     },
 
   },
   grouped: {
     minWidth: '110px',
     maxWidth: '110px',
+    marginTop: '3px'
   },
 }))(StyledToggleButtonGroup);
 
 const AllButton = withStyles(theme => ({
   root: {
     lineHeight: '1',
+    width: '50px',
     maxHeight: '28px',
-    marginRight: '3px',
+    margin: '3px 3px 0 0',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      width: '30ox',
+    },
   }
 }))(ToggleButton);

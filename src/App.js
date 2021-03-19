@@ -90,4 +90,32 @@ const theme = createMuiTheme({
       main: blue[700],
     }
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 370,
+      md: 520,
+      lg: 900,
+      xl: 1200
+    }
+  },
+  overrides: {
+        MuiToggleButton: {
+            root: {
+                boxSizing: 'border-box',
+                color: '#fff',
+                backgroundColor: '#616161',
+                '&$selected': {
+                    backgroundColor: '#607d8b',
+                    color: '#fff',
+                    '&:hover': {
+                        backgroundColor: '#607d8b',
+                    },
+                },
+                '&:hover': {
+                    backgroundColor: '#455a64',
+                },
+            },
+        },
+    },
 })
