@@ -57,7 +57,15 @@ function Solutions(props) {
     const filteredByNumber = numbersAll ? [...filteredByLetter] :
     filteredByLetter.filter(item => parsedNumbers.includes(item.length))
 
-    return filteredByNumber.map(x => <div key={x}>{x}</div>);
+    if (filteredByNumber.length > 0) {
+      return (
+        <Grid className={classes.columns}>
+          {filteredByNumber.map(x => <div key={x}>{x}</div>)}
+        </Grid>
+      )
+    } else {
+      return 'No matches for your selection'
+    }
   }
 
   return (
@@ -118,7 +126,9 @@ function Solutions(props) {
             </NumberToggleGroup>
           </Paper>
         </Grid>
-        <Grid className={classes.columns}>{sortAndFilter()}</Grid>
+        <Grid className={classes.results}>
+        {sortAndFilter()}
+        </Grid>
       </div>
   );
 }
@@ -155,13 +165,16 @@ const useStyles = makeStyles(theme => ({
     border: '0px',
     boxShadow: 'none',
   },
+  results: {
+    marginTop: '50px',
+  },
   columns: {
     columns: '100px 7',
-    margin: '50px 0 0 50px',
+    margin: '0 0 0 50px',
 
     [theme.breakpoints.between('xs', 'sm')]: {
       columns: '70px 4',
-      margin: '35px 0 0 35px',
+      margin: '0 0 0 35px',
     },
 
   },
@@ -183,17 +196,17 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     justifyContent: 'center',
 
     [theme.breakpoints.between('lg','xl')]: {
-      minWidth: '780px'
+      minWidth: '754px'
     },
 
     [theme.breakpoints.between('md', 'md')]: {
-      minWidth: '395px',
-      maxWidth: '395px',
+      minWidth: '377px',
+      maxWidth: '377px',
     },
 
     [theme.breakpoints.between('xs', 'sm')]: {
-      minWidth: '272px',
-      maxWidth: '272px',
+      minWidth: '262px',
+      maxWidth: '262px',
     },
 
   },
@@ -201,7 +214,31 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     lineHeight: '1',
     minWidth: '30px',
     maxWidth: '30px',
-    marginTop: '3px',
+    '&:not(:first-child)': {
+     borderLeft: '1px solid #757575',
+    },
+    [theme.breakpoints.between('md', 'md')]: {
+      '&:nth-child(13)': {
+      borderTopRightRadius: '4px',
+      borderBottomRightRadius: '4px',
+      },
+      '&:nth-child(14)': {
+      borderTopLeftRadius: '4px',
+      borderBottomLeftRadius: '4px',
+      borderLeft: 'none',
+      },
+    },
+    [theme.breakpoints.between('xs', 'sm')]: {
+      '&:nth-child(9n+0)': {
+      borderTopRightRadius: '4px',
+      borderBottomRightRadius: '4px',
+      },
+      '&:nth-child(9n+1)': {
+      borderTopLeftRadius: '4px',
+      borderBottomLeftRadius: '4px',
+      borderLeft: 'none',
+      },
+    },
   },
 }))(ToggleButtonGroup);
 
@@ -213,21 +250,44 @@ const NumberToggleGroup = withStyles(theme => ({
     },
 
     [theme.breakpoints.between('md', 'md')]: {
-      minWidth: '332px',
-      maxWidth: '332px',
+      minWidth: '328px',
+      maxWidth: '328px',
+
     },
 
     [theme.breakpoints.between('xs', 'sm')]: {
-      minWidth: '222px',
-      maxWidth: '222px',
+      minWidth: '218px',
+      maxWidth: '218px',
     },
 
   },
   grouped: {
     minWidth: '110px',
     maxWidth: '110px',
-    marginTop: '3px'
+    [theme.breakpoints.between('md', 'md')]: {
+      '&:nth-child(3)': {
+      borderTopRightRadius: '4px',
+      borderBottomRightRadius: '4px',
+      },
+      '&:nth-child(4)': {
+      borderTopLeftRadius: '4px',
+      borderBottomLeftRadius: '4px',
+      borderLeft: 'none',
+      },
+    },
+    [theme.breakpoints.between('xs', 'sm')]: {
+      '&:nth-child(2n+0)': {
+      borderTopRightRadius: '4px',
+      borderBottomRightRadius: '4px',
+      },
+      '&:nth-child(2n+1)': {
+      borderTopLeftRadius: '4px',
+      borderBottomLeftRadius: '4px',
+      borderLeft: 'none',
+      },
+    },
   },
+
 }))(StyledToggleButtonGroup);
 
 const AllButton = withStyles(theme => ({
@@ -235,7 +295,7 @@ const AllButton = withStyles(theme => ({
     lineHeight: '1',
     width: '50px',
     maxHeight: '28px',
-    margin: '3px 3px 0 0',
+    marginRight: '4px',
     [theme.breakpoints.between('xs', 'sm')]: {
       width: '30ox',
     },

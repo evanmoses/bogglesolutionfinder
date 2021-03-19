@@ -102,7 +102,9 @@ const theme = createMuiTheme({
   overrides: {
         MuiToggleButton: {
             root: {
-                boxSizing: 'border-box',
+                marginLeft: '-1px !important',
+                marginTop: '3px',
+                border: 'none',
                 color: '#fff',
                 backgroundColor: '#616161',
                 '&$selected': {
