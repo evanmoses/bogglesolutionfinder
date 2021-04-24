@@ -71,7 +71,13 @@ var BoggleWords = function (grid, dict, mustHave) {
                 newHist.push([x2, y2]);
                 var s2 = s + grid[y2][x2];
                 var node2 = node.children[grid[y2][x2].charCodeAt(0) - 97];
+
                 if (node2 !== undefined) {
+                    // console.log(node2);
+                    if ((grid[y2][x2].charCodeAt(0) - 97) === 16) {
+                      var node2 = node2.children[20];
+                      var s2 = s2 + 'u';
+                    }
                     // console.log(s2);
                     if (node2.isWord) {
                         if (mustHave === undefined || s2.indexOf(mustHave) !== -1)
@@ -86,11 +92,5 @@ var BoggleWords = function (grid, dict, mustHave) {
     }
     return words;
 }
-
-/*Example usage:
-var df = require('./en_au_dict.js');
-
-console.log(BoggleWords(board, d));
-*/
 
 export { BoggleWords, MakeTrie }
